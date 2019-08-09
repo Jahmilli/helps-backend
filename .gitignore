@@ -1,0 +1,11 @@
+# IDEA
+.vscode
+
+# node modules
+*node_modules/
+
+*build/
+.env
+
+# misc
+.DS_Store
