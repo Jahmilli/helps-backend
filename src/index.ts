@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 app.get('/api/v1/test', (req, res) => {
   console.log('A request to test was made');
   let results = {
-    message: 'hello friend'
+    message: 'This is a test message from helps-backend'
   };
   res.send(results);
 });
