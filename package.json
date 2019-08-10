@@ -1,0 +1,29 @@
+{
+  "name": "helps-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "start": "ts-node-dev --respawn --transpileOnly ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jahmilli/helps-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jahmilli/helps-backend/issues"
+  },
+  "homepage": "https://github.com/Jahmilli/helps-backend#readme",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.40",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {}
+}
