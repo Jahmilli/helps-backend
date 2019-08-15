@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1/student",
+    "schemes": [
+        "http"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/registration": {
+            "get": {
+                "tags": [
+                    "Student Registration"
+                ],
+                "summary": "Registering a new student's details",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "content": {
+                    "application/json": {}
+                },
+                "requestBody": {
+                    "description": "Contains the required fields for student registration",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Specifies the query string",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    }
+}
