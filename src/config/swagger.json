@@ -29,6 +29,17 @@
                 "content": {
                     "application/json": {}
                 },
+                "requestBody": {
+                    "description": "Contains the required fields for student registration",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                
+                            }
+                        }
+                    }
+                },
                 "parameters": [
                     {
                         "name": "q",
