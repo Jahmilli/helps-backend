@@ -14,3 +14,6 @@
 
 
 If you have any issues, please ask someone in the group :)
+This application was setup using:
+- [production ready nodejs](https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407)
+- [strongly typed models with mongoose and typescript](https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722)
