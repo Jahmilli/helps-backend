@@ -1,6 +1,7 @@
 import http from 'http';
 import express from 'express';
 import { applyMiddleware, applyRoutes } from './utils';
+import bodyParser from 'body-parser';
 import routes from './services';
 import errorHandlers from "./middleware/errorHandlers";
 import middleware from './middleware';
@@ -16,6 +17,10 @@ process.on("unhandledRejection", e => {
 });
 
 const router = express();
+// router.use(bodyParser.urlencoded({
+//   extended: false
+// }))
+// router.use(bodyParser.json())
 applyMiddleware(middleware, router);
 applyRoutes(routes, router);
 applyMiddleware(errorHandlers, router);

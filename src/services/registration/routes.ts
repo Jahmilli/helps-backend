@@ -5,14 +5,31 @@ import { IStudent } from './models/student.model'
 import { checkStudentRegisterParams } from '../../middleware/check';
 
 export default [
-  {
-    path: '/api/v1/student/registration',
+    {
+    path: '/api/v1/student/register',
     method: 'post',
     handler: [
       checkStudentRegisterParams,
       async (req: Request, res: Response) => {
         console.log(req.body);
-        const result = await CreateStudent({email: req.body.email, firstName: req.body.firstName, lastName: req.body.lastName} as IStudent);
+        // Can perform validation on any of these fields if need be
+        const {
+            email, 
+            studentID,
+            fullName,
+            preferredName,
+            faculty,
+            courseID,
+            preferredContactNumber,
+            dateOfBirth,
+            gender,
+            degree,
+            status,
+            education
+        } = req.body;
+        const result = await CreateStudent({email, studentID, fullName, preferredName, 
+                                            faculty, courseID, preferredContactNumber, dateOfBirth,
+                                            gender, degree, status, education } as IStudent);
         res.status(200).send(result);
       }
     ]

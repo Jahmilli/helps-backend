@@ -6,7 +6,9 @@ export const checkStudentRegisterParams = (
     res: Response,
     next: NextFunction
 ) => {
-    if (!req.body.email || !req.body.firstName || !req.body.lastName) {
+    console.log('check student params')
+    console.log(req.body);
+    if (!req.body.email || !req.body.fullName) {
         throw new HTTP400Error('Missing Parameters');
     } else {
         next();
