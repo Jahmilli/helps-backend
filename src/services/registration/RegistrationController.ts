@@ -1,17 +1,4 @@
-// import { getPlaces } from "./providers/OpenCageDataProvider";
 import Student, { IStudent} from './models/student.model';
-import { mongo } from 'mongoose';
-
-// export const getPlacesByName = async (q: string) => {
-//   if (q.length < 3) {
-//     return {
-//       type: "FeatureCollection",
-//       features: []
-//     };
-//   }
-
-//   return await getPlaces(q);
-// };
 
 export function getUserEmailById(
     user: IStudent,
@@ -19,14 +6,24 @@ export function getUserEmailById(
   ): IStudent['email'] {
     return users.filter((item: IStudent) => item._id === user._id)[0].email;
 }
-async function CreateStudent({ email, firstName, lastName }: IStudent): Promise<IStudent> {
+
+async function CreateStudent(student: IStudent): Promise<IStudent> {
     return await Student.create({
-        email,
-        firstName,
-        lastName
+        email: student.email, 
+        studentID: student.studentID, 
+        fullName: student.fullName, 
+        preferredName: student.preferredName, 
+        faculty: student.faculty, 
+        courseID: student.courseID, 
+        preferredContactNumber: student.preferredContactNumber, 
+        dateOfBirth: student.dateOfBirth,
+        gender: student.gender, 
+        degree: student.degree, 
+        status: student.status, 
+        education: student.education
     })
     .then((data: IStudent) => {
-        console.log(`${data.firstName} was successfully added`);
+        console.log(`${data.fullName} was successfully added`);
         return data;
     })
     .catch((error: Error) => {
