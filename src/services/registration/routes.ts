@@ -12,7 +12,7 @@ export default [
       checkStudentRegisterParams,
       async (req: Request, res: Response) => {
         console.log(req.body);
-        // Can perform validation on any of these fields if need be
+        // Can perform validation on any of these fields if need be (Should be done from the front-end though)
         const {
             email, 
             studentID,
@@ -33,12 +33,12 @@ export default [
         res.status(200).send(result);
       }
     ]
-  },
-  {
-    path: '/api/v1/test',
-    method: 'get',
-    handler: async (req: Request, res: Response) => {
-      res.send('This is a test message from node!');
+    },
+    {
+        path: '/api/v1/test',
+        method: 'get',
+        handler: async (req: Request, res: Response) => {
+        res.send('This is a test message from node!');
+        }
     }
-  }
 ];
