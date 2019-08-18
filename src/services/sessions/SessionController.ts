@@ -1,13 +1,6 @@
 import Session, { ISession} from './models/session.model';
 
-// export function getUserEmailById(
-//     user: ISession,
-//     users: ISession[]
-//   ): ISession['email'] {
-//     return users.filter((item: ISession) => item._id === user._id)[0].email;
-// }
-
-async function CreateSession(sessions: any): Promise<ISession> {
+export async function CreateSessions(sessions: any): Promise<Array<ISession>> {
     return await Session.insertMany(sessions).then(res => {
         console.log('response successful');
         console.log(res);
@@ -18,4 +11,11 @@ async function CreateSession(sessions: any): Promise<ISession> {
     });
 }
 
-export default CreateSession;
+export async function GetSessions(): Promise<Array<ISession>> {
+    return await Session.find({}, (err, session) => {
+        if (err) {
+            throw err;
+        }
+        return session;
+    });
+}
