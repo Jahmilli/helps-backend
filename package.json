@@ -28,7 +28,6 @@
     "@types/mongoose": "^5.5.12",
     "@types/request-promise": "^4.1.44",
     "@types/swagger-ui-express": "^3.0.1",
-    "@types/uuid": "^3.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -38,8 +37,7 @@
     "request-promise": "^4.2.4",
     "swagger-ui-express": "^4.0.7",
     "ts-node-dev": "^1.0.0-pre.40",
-    "typescript": "^3.5.3",
-    "uuid": "^3.3.2"
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",

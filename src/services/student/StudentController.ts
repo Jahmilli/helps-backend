@@ -8,20 +8,7 @@ export function getUserEmailById(
 }
 
 async function CreateStudent(student: IStudent): Promise<IStudent> {
-    return await Student.create({
-        email: student.email, 
-        studentID: student.studentID, 
-        fullName: student.fullName, 
-        preferredName: student.preferredName, 
-        faculty: student.faculty, 
-        courseID: student.courseID, 
-        preferredContactNumber: student.preferredContactNumber, 
-        dateOfBirth: student.dateOfBirth,
-        gender: student.gender, 
-        degree: student.degree, 
-        status: student.status, 
-        education: student.education
-    })
+    return await Student.create(student)
     .then((data: IStudent) => {
         console.log(`${data.fullName} was successfully added`);
         return data;

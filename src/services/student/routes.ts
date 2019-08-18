@@ -12,24 +12,8 @@ export default [
       checkStudentRegisterParams,
       async (req: Request, res: Response) => {
         console.log(req.body);
-        // Can perform validation on any of these fields if need be (Should be done from the front-end though)
-        const {
-            email, 
-            studentID,
-            fullName,
-            preferredName,
-            faculty,
-            courseID,
-            preferredContactNumber,
-            dateOfBirth,
-            gender,
-            degree,
-            status,
-            education
-        } = req.body;
-        const result = await CreateStudent({email, studentID, fullName, preferredName, 
-                                            faculty, courseID, preferredContactNumber, dateOfBirth,
-                                            gender, degree, status, education } as IStudent);
+        const newStudent:IStudent = req.body;
+        const result = await CreateStudent(newStudent);
         res.status(200).send(result);
       }
     ]

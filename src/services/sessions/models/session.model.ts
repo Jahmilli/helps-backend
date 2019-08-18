@@ -2,7 +2,6 @@ import mongoose, { Schema, Document} from 'mongoose';
 
 // Could probably be abstracted into a booking and used for workshop bookings as well
 export interface ISession extends Document {
-    sessionID?: string;
     date: string;  // Could probs remove this
     startTime: string; // Should be a date object
     endTime: string; // Should be a date object
@@ -15,8 +14,6 @@ export interface ISession extends Document {
 }
 
 const SessionSchema: Schema = new Schema({
-    // _id: { type: String, required: true },
-    sessionID: { type: String, required: false, unique: true },
     date: { type: String, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
