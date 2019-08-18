@@ -1,7 +1,6 @@
 import Session, { ISession} from './models/session.model';
 
 export async function CreateSessions(sessions: any): Promise<Array<ISession>> {
-    console.log('sessions is ', sessions);
     return await Session.insertMany(sessions).then(res => {
         return res;
     }).catch(err => {
