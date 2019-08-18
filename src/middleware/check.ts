@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { HTTP400Error } from '../utils/httpErrors';
+import { ISession } from '../services/sessions/models/session.model';
 
 export const checkStudentRegisterParams = (
     req: Request,
@@ -11,4 +12,19 @@ export const checkStudentRegisterParams = (
     } else {
         next();
     }
+}
+
+export const checkSessionParams = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    // TODO check that we can map on body
+    req.body.map((session: ISession) => {
+        if (!session.date || !session.startTime || !session.endTime || !session.room || !session.type || !session.advisor) {
+            throw new HTTP400Error('Missing Parameters');
+        } 
+    })
+    next();
+    
 }

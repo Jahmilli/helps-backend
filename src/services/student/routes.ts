@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import CreateStudent from './RegistrationController';
+import CreateStudent from './StudentController';
 import { IStudent } from './models/student.model'
 import { checkStudentRegisterParams } from '../../middleware/check';
 
