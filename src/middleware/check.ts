@@ -19,12 +19,13 @@ export const checkSessionParams = (
     res: Response,
     next: NextFunction
 ) => {
-    // TODO check that we can map on body
+    if (!req.body) {
+        throw new HTTP400Error('Missing request body');
+    }
     req.body.map((session: ISession) => {
         if (!session.date || !session.startTime || !session.endTime || !session.room || !session.type || !session.advisor) {
             throw new HTTP400Error('Missing Parameters');
         } 
-    })
-    next();
-    
+    });
+    next(); 
 }
