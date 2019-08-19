@@ -20,7 +20,6 @@ export interface ISession extends Document {
 
 export interface NeedsHelpWith {
     [key: string]: boolean;
-    // bookingAnswer1: boolean;
 }
 
 const SessionSchema: Schema = new Schema({

@@ -19,7 +19,7 @@ export default [
       path: '/api/v1/session/book',
       method: 'post',
       handler: [
-        checkSessionParams,
+        // checkSessionParams,
         async (req: Request, res: Response) => {
           const result: ISession = await BookSession(req.body);
           res.status(200).send(result);
