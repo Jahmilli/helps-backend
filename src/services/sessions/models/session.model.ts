@@ -13,13 +13,14 @@ export interface ISession extends Document {
     subjectName: string;
     assignmentType: string;
     isGroupAssignment: boolean;
-    needsHelpWith: NeedsHelpWith;
+    needsHelpWithOptions: Array<NeedsHelpWithOptions>;
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 }
 
-export interface NeedsHelpWith {
-    [key: string]: boolean;
+export interface NeedsHelpWithOptions {
+    id: string;
+    value: boolean;
 }
 
 const SessionSchema: Schema = new Schema({
@@ -34,7 +35,7 @@ const SessionSchema: Schema = new Schema({
     subjectName: { type: String, required: false },
     assignmentType: { type: String, required: false },
     isGroupAssignment: { type: Boolean, required: false },
-    needsHelpWith: { type: Object, required: false },
+    needsHelpWithOptions: { type: [Object], required: false },
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 });

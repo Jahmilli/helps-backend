@@ -10,8 +10,8 @@ export async function CreateSessions(sessions: Array<ISession>): Promise<Array<I
 }
 
 export async function BookSession(session: ISession): Promise<ISession> {
-    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWith } = session;
-    return await Session.updateOne({_id: session._id}, { $set: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWith } }, (err, res) => {
+    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions } = session;
+    return await Session.updateOne({_id: session._id}, { $set: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions } }, (err, res) => {
         if (err) {
             console.log('an error occurred when updating', err);
             throw err;
