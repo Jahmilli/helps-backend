@@ -13,12 +13,13 @@ export interface ISession extends Document {
     subjectName: string;
     assignmentType: string;
     isGroupAssignment: boolean;
-    needsHelpWithOptions: Array<NeedsHelpWithOptions>;
+    needsHelpWithOptions: Array<ICheckbox>;
+    additionalOptions?: Array<ICheckbox>
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 }
 
-export interface NeedsHelpWithOptions {
+export interface ICheckbox {
     id: string;
     value: boolean;
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { BookSession, CreateSessions, GetSessions } from './SessionController';
+import { BookSession, CreateSessions, GetSessions, EmailRecipients } from './SessionController';
 import { ISession } from './models/session.model'
 import { checkSessionParams } from '../../middleware/check';
 
@@ -30,8 +30,8 @@ export default [
       path: '/api/v1/session',
       method: 'get',
       handler: async (req: Request, res: Response) => {
-          const result: Array<ISession> = await GetSessions();
-          res.status(200).send(result);
+        const result: Array<ISession> = await GetSessions();
+        res.status(200).send(result);
       }
     },
 ];
