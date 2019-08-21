@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { BookSession, CreateSessions, GetSessions, EmailRecipients } from './SessionController';
+import { BookSession, CreateSessions, GetSessions } from './SessionController';
 import { ISession } from './models/session.model'
 import { checkSessionParams } from '../../middleware/check';
 

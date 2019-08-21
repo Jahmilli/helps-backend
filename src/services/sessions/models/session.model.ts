@@ -14,7 +14,8 @@ export interface ISession extends Document {
     assignmentType: string;
     isGroupAssignment: boolean;
     needsHelpWithOptions: Array<ICheckbox>;
-    additionalOptions?: Array<ICheckbox>
+    additionalHelpDetails: string;
+    additionalOptions?: Array<ICheckbox>;
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 }
@@ -37,6 +38,7 @@ const SessionSchema: Schema = new Schema({
     assignmentType: { type: String, required: false },
     isGroupAssignment: { type: Boolean, required: false },
     needsHelpWithOptions: { type: [Object], required: false },
+    additionalHelpDetails: { type: String, required: false },
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 });

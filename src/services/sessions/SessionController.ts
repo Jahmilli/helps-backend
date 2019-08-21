@@ -1,25 +1,25 @@
 import Session, { ISession, ICheckbox} from './models/session.model';
 import { GetStudentByStudentId } from '../student/StudentController';
 import sendEmailConfirmation from './services.ts/email';
-import { HTTP400Error } from '../../utils/httpErrors';
+import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
 
 export async function CreateSessions(sessions: Array<ISession>): Promise<Array<ISession>> {
     return await Session.insertMany(sessions).then(res => {
         return res;
     }).catch(err => {
         console.log('an error occurred', err);
-        return err;
+        throw new HTTP500Error();
     });
 }
 
 export async function BookSession(session: ISession): Promise<ISession> {
-    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions } = session;
+    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session;
     const student = await GetStudentByStudentId(studentId || '');
     if (!student) {
         throw new HTTP400Error("Student does not exist");
     }
 
-    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions } }, (err, res) => {
+    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } }, (err, res) => {
         if (err) {
             console.log('an error occurred when updating', err);
             throw err;
@@ -48,14 +48,4 @@ export async function GetSessions(): Promise<Array<ISession>> {
         }
         return session;
     });
-}
-
-export async function EmailRecipients(recipients: Array<any>): Promise<any> {
-
-    for (let recipient of recipients) {
-        if (recipient.value = true) {
-            let response = await sendEmailConfirmation('sebastian.southern@gmail.com');
-        }
-    }
-    return Promise.resolve(response);
 }
