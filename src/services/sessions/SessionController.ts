@@ -13,13 +13,14 @@ export async function CreateSessions(sessions: Array<ISession>): Promise<Array<I
 }
 
 export async function BookSession(session: ISession): Promise<ISession> {
-    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session;
+    console.log(session.currentBooking);
+    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session.currentBooking;
     const student = await GetStudentByStudentId(studentId || '');
     if (!student) {
         throw new HTTP400Error("Student does not exist");
     }
 
-    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } }, (err, res) => {
+    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { currentBooking: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } } }, (err, res) => {
         if (err) {
             console.log('an error occurred when updating', err);
             throw err;
@@ -27,10 +28,9 @@ export async function BookSession(session: ISession): Promise<ISession> {
         return res;
     });
 
-    session.additionalOptions = session.additionalOptions || [];
-
-    for (let index in session.additionalOptions) {
-        const option = session.additionalOptions[index];
+    const additionalOptions = session.currentBooking.additionalOptions || [];
+    for (let index in additionalOptions) {
+        const option = additionalOptions[index];
         if (option.id === 'emailStudent' && option.value) {
             let emailSent = await sendEmailConfirmation(session, student);
         } else if (option.id === 'emailAdmin' && option.value) {

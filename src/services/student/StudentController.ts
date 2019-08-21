@@ -19,7 +19,7 @@ async function CreateStudent(student: IStudent): Promise<IStudent> {
 }
 
 export async function GetStudentByStudentId(studentId: string): Promise<IStudent | null> {
-    return await Student.findOne({ studentId: studentId }, function (err, student) {
+    return await Student.findOne({ studentId }, function (err, student) {
         if (err) {
             console.log(`An error occurred when searching for ${studentId}`);
             return err;

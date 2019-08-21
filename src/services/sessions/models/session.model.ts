@@ -8,6 +8,13 @@ export interface ISession extends Document {
     room: string;
     advisor: string;
     type: string;
+    currentBooking: SessionDetails;
+    waitingList: Array<SessionDetails>
+    // attendedNotAttended: string; (not sure what this is)
+    // waiting: string; (Not sure what this is)
+}
+
+interface SessionDetails {
     studentId?: string;
     reason: string // Taken from 'this appointment is for'
     subjectName: string;
@@ -15,15 +22,24 @@ export interface ISession extends Document {
     isGroupAssignment: boolean;
     needsHelpWithOptions: Array<ICheckbox>;
     additionalHelpDetails: string;
-    additionalOptions?: Array<ICheckbox>;
-    // attendedNotAttended: string; (not sure what this is)
-    // waiting: string; (Not sure what this is)
+    additionalOptions?: Array<ICheckbox>;   
 }
 
 export interface ICheckbox {
     id: string;
     value: boolean;
 }
+
+
+const SessionDetailsSchema: Schema = new Schema({
+    studentId: { type: String, required: false },
+    reason: { type: String, required: false },
+    subjectName: { type: String, required: false },
+    assignmentType: { type: String, required: false },
+    isGroupAssignment: { type: Boolean, required: false },
+    needsHelpWithOptions: { type: [Object], required: false },
+    additionalHelpDetails: { type: String, required: false },
+});
 
 const SessionSchema: Schema = new Schema({
     date: { type: String, required: true },
@@ -32,13 +48,9 @@ const SessionSchema: Schema = new Schema({
     room: { type: String, required: true },
     advisor: { type: String, required: true },
     type: { type: String, required: true },
-    studentId: { type: String, required: false },
-    reason: { type: String, required: false },
-    subjectName: { type: String, required: false },
-    assignmentType: { type: String, required: false },
-    isGroupAssignment: { type: Boolean, required: false },
-    needsHelpWithOptions: { type: [Object], required: false },
-    additionalHelpDetails: { type: String, required: false },
+    currentBooking: { type: SessionDetailsSchema, required: false },
+    waitingList: { type: [SessionDetailsSchema], required: false }
+
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 });
