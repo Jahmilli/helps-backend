@@ -9,7 +9,8 @@ export interface ISession extends Document {
     advisor: string;
     type: string;
     currentBooking: SessionDetails;
-    waitingList: Array<SessionDetails>
+    waitingList: Array<SessionDetails>;
+    isCurrentBooking: boolean;
     // attendedNotAttended: string; (not sure what this is)
     // waiting: string; (Not sure what this is)
 }

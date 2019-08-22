@@ -14,20 +14,21 @@ export async function CreateSessions(sessions: Array<ISession>): Promise<Array<I
 
 export async function BookSession(session: ISession): Promise<ISession> {
     console.log(session);
-    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session.waitingList[0];
-    console.log('values are ', studentId, reason, subjectName);
-    const student = await GetStudentByStudentId(studentId || '');
+    const bookingDetails = session.isCurrentBooking ? session.currentBooking : session.waitingList[session.waitingList.length-1];
+    console.log('is currentBooking ' + session.isCurrentBooking);
+    
+    // Verify student exists and get their details
+    const student = await GetStudentByStudentId(bookingDetails.studentId || '');
     if (!student) {
         throw new HTTP400Error("Student does not exist");
     }
 
-    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { waitingList: [{ studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails }] } }, (err, res) => {
-        if (err) {
-            console.log('an error occurred when updating', err);
-            throw err;
-        }
-        return res;
-    });
+    let updateSessions;
+    if (session.isCurrentBooking) {
+        updateSessions = await addToCurrentBooking(session, bookingDetails);
+    } else {
+        updateSessions = await addToWaitingList(session, bookingDetails);
+    }
 
     const additionalOptions = session.currentBooking.additionalOptions || [];
     console.log('additional options are: ', additionalOptions);
@@ -41,6 +42,30 @@ export async function BookSession(session: ISession): Promise<ISession> {
     }
     
     return updateSessions;
+}
+
+export async function addToCurrentBooking(session: ISession, bookingDetails: any): Promise<ISession> {
+    return await Session.updateOne({_id: session._id}, { $set: 
+        { currentBooking: bookingDetails }
+     }, (err, res) => {
+        if (err) {
+            console.log('an error occurred when updating', err);
+            throw err;
+        }
+        return res;
+    });  
+}
+
+export async function addToWaitingList(session: ISession, bookingDetails: any): Promise<ISession> {
+    return await Session.updateOne({_id: session._id}, { $addToSet: 
+        { waitingList: bookingDetails }
+     }, (err, res) => {
+        if (err) {
+            console.log('an error occurred when updating', err);
+            throw err;
+        }
+        return res;
+    }); 
 }
 
 
