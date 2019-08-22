@@ -24,9 +24,9 @@ const sendEmailConfirmation = async (session: ISession, student: IStudent): Prom
     };
 
     // Building Email message.
-    mailOptions.subject = 'You have been selected to help out with our event!';
+    mailOptions.subject = 'Session booking confirmation';
     mailOptions.text = `Hello ${student.preferredName},` +
-        `You have been registered for a session with the following details` +
+        `\nYou have been registered for a session with the following details` +
         `\nDate: ${session.date}` +
         `\nStart Time:  ${session.startTime}` +
         `\nEnd Time:  ${session.endTime}\n\n\n` + 
