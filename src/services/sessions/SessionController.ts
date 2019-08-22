@@ -29,14 +29,16 @@ export async function BookSession(session: ISession): Promise<ISession> {
     });
 
     const additionalOptions = session.currentBooking.additionalOptions || [];
-    for (let index in additionalOptions) {
-        const option = additionalOptions[index];
-        if (option.id === 'emailStudent' && option.value) {
-            let emailSent = await sendEmailConfirmation(session, student);
-        } else if (option.id === 'emailAdmin' && option.value) {
-            // Need to add in admin interface user setup etc
-        }
+    console.log('additional options are: ', additionalOptions);
+    //@ts-ignore
+    if (additionalOptions.emailAdmin) {
+        let emailSent = await sendEmailConfirmation(session, student);
     }
+    //@ts-ignore
+    if (additionalOptions.emailStudent) {
+        // Need to add in admin interface user setup etc
+    }
+    
     return updateSessions;
 }
 

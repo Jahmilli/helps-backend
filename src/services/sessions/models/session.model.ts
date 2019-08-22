@@ -20,14 +20,13 @@ interface SessionDetails {
     subjectName: string;
     assignmentType: string;
     isGroupAssignment: boolean;
-    needsHelpWithOptions: Array<ICheckbox>;
+    needsHelpWithOptions: ICheckbox;
     additionalHelpDetails: string;
-    additionalOptions?: Array<ICheckbox>;   
+    additionalOptions?: ICheckbox;
 }
 
 export interface ICheckbox {
-    id: string;
-    value: boolean;
+    [key: string]: string;
 }
 
 
@@ -37,7 +36,7 @@ const SessionDetailsSchema: Schema = new Schema({
     subjectName: { type: String, required: false },
     assignmentType: { type: String, required: false },
     isGroupAssignment: { type: Boolean, required: false },
-    needsHelpWithOptions: { type: [Object], required: false },
+    needsHelpWithOptions: { type: Object, required: false },
     additionalHelpDetails: { type: String, required: false },
 });
 
