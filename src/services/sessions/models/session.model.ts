@@ -12,7 +12,6 @@ export interface ISession extends Document {
     waitingList: Array<SessionDetails>;
     isCurrentBooking: boolean;
     // attendedNotAttended: string; (not sure what this is)
-    // waiting: string; (Not sure what this is)
 }
 
 interface SessionDetails {
@@ -27,9 +26,8 @@ interface SessionDetails {
 }
 
 export interface ICheckbox {
-    [key: string]: string;
+    key: string;
 }
-
 
 const SessionDetailsSchema: Schema = new Schema({
     studentId: { type: String, required: false },
@@ -52,7 +50,6 @@ const SessionSchema: Schema = new Schema({
     waitingList: { type: [SessionDetailsSchema], required: false }
 
     // attendedNotAttended: string; (not sure what this is)
-    // waiting: string; (Not sure what this is)
 });
   
 export default mongoose.model<ISession>('Session', SessionSchema);

@@ -1,4 +1,5 @@
 import Student, { IStudent} from './models/student.model';
+import { HTTP500Error } from '../../utils/httpErrors';
 
 export function getUserEmailById(
     user: IStudent,
@@ -14,15 +15,16 @@ async function CreateStudent(student: IStudent): Promise<IStudent> {
         return data;
     })
     .catch((error: Error) => {
-        throw error;
+        console.error(error);
+        throw new HTTP500Error('Error occurred when creating student');
     });
 }
 
 export async function GetStudentByStudentId(studentId: string): Promise<IStudent | null> {
     return await Student.findOne({ studentId }, function (err, student) {
         if (err) {
-            console.log(`An error occurred when searching for ${studentId}`);
-            return err;
+            console.error(`An error occurred when searching for ${studentId}`);
+            throw new HTTP500Error('An error occurred when searching for the student');
         }
         if (!student) {
             console.log(`No student was found with the id ${studentId}`);

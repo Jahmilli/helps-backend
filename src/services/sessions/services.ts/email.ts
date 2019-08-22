@@ -3,11 +3,6 @@ import Config from '../../../AppConfig';
 import { ISession } from '../models/session.model';
 import { IStudent } from '../../student/models/student.model';
 
-// Configure the email transport using the default SMTP transport and a GMail account.
-// For other types of transports such as Sendgrid see https://nodemailer.com/transports/
-
-// const gmailEmail = functions.config().gmail.email;
-// const gmailPassword = functions.config().gmail.password;
 const mailTransport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
