@@ -13,14 +13,15 @@ export async function CreateSessions(sessions: Array<ISession>): Promise<Array<I
 }
 
 export async function BookSession(session: ISession): Promise<ISession> {
-    console.log(session.currentBooking);
-    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session.currentBooking;
+    console.log(session);
+    const { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } = session.waitingList[0];
+    console.log('values are ', studentId, reason, subjectName);
     const student = await GetStudentByStudentId(studentId || '');
     if (!student) {
         throw new HTTP400Error("Student does not exist");
     }
 
-    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { currentBooking: { studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails } } }, (err, res) => {
+    let updateSessions = await Session.updateOne({_id: session._id}, { $set: { waitingList: [{ studentId, reason, subjectName, assignmentType, isGroupAssignment, needsHelpWithOptions, additionalHelpDetails }] } }, (err, res) => {
         if (err) {
             console.log('an error occurred when updating', err);
             throw err;
