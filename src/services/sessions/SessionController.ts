@@ -32,11 +32,11 @@ export async function BookSession(session: ISession): Promise<ISession> {
     console.log('additional options are: ', additionalOptions);
     //@ts-ignore
     if (additionalOptions.emailAdmin) {
-        let emailSent = await sendEmailConfirmation(session, student);
+        // Need to add in admin interface user setup etc
     }
     //@ts-ignore
     if (additionalOptions.emailStudent) {
-        // Need to add in admin interface user setup etc
+        let emailSent = await sendEmailConfirmation(session, student);
     }
     
     return updateSessions;

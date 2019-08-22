@@ -17,15 +17,7 @@ const mailTransport = nodemailer.createTransport({
 });
 
 // Sends an email confirmation when a user changes his mailing list subscription.
-// SHOULD BE PASSING IN ADMIN/STUDENT OBJECT and read from that for the message
 const sendEmailConfirmation = async (session: ISession, student: IStudent): Promise<string> => {
-    // const snapshot = change.after;
-    // const val = snapshot.val();
-    // let volunteerData = undefined;
-    // let location = undefined;
-    // let eventData = undefined;
-    // let charityData = undefined;
-
     const mailOptions: any = {
         from: '"Helps-UTS." <noreply@help-uts.com>',
         to: student.email
@@ -33,12 +25,17 @@ const sendEmailConfirmation = async (session: ISession, student: IStudent): Prom
 
     // Building Email message.
     mailOptions.subject = 'You have been selected to help out with our event!';
-    mailOptions.text = `Hello seb how are you`
-
+    mailOptions.text = `Hello ${student.preferredName},` +
+        `You have been registered for a session with the following details` +
+        `\nDate: ${session.date}` +
+        `\nStart Time:  ${session.startTime}` +
+        `\nEnd Time:  ${session.endTime}\n\n\n` + 
+        `\nLooking forward to seeing you,` +
+        `\n${session.advisor}`;
     try {
         await mailTransport.sendMail(mailOptions);
         console.log(`An email was successfully sent to`);
-        return 'An email was successfully sent to'
+        return `An email was successfully sent to ${student.email}`;
     } catch(error) {
         console.error('There was an error while sending the email:', error);
         return 'There was an error while sending the email: ' + error;
