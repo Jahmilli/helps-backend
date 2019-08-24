@@ -43,13 +43,5 @@ export default [
 
         res.status(200).send(result);
       }
-    },
-    {
-      path: '/api/v1/annuities',
-      method: 'post',
-      handler: async (req: Request, res: Response) => {
-        console.log(req.body);
-        res.status(200).send(req.body);
-      }
-    },
+    }
 ];
