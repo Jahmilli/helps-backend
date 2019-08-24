@@ -20,6 +20,7 @@ async function CreateStudent(student: IStudent): Promise<IStudent> {
     });
 }
 
+// Returns a student object based on the studentId
 export async function GetStudentByStudentId(studentId: string): Promise<IStudent | null> {
     return await Student.findOne({ studentId }, function (err, student) {
         if (err) {
@@ -32,6 +33,19 @@ export async function GetStudentByStudentId(studentId: string): Promise<IStudent
         }
         return student;
     });
+}
+
+export async function AddSessionForStudent(_id: string, sessionId: string) {
+    return await Student.updateOne({ _id }, { $addToSet: 
+         { 'upcomingSessions.sessionIds': sessionId } 
+     }, (err, res) => {
+        if (err) {
+            console.error('an error occurred when updating', err);
+            throw new HTTP500Error('An error occurred when booking the session');
+        }
+        console.log('done ', res);
+        return res;
+    }); 
 }
 
 export default CreateStudent;

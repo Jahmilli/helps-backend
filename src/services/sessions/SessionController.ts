@@ -1,5 +1,5 @@
 import Session, { ISession } from './models/session.model';
-import { GetStudentByStudentId } from '../student/StudentController';
+import { GetStudentByStudentId, AddSessionForStudent } from '../student/StudentController';
 import sendEmailConfirmation from './services.ts/email';
 import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
 
@@ -22,12 +22,15 @@ export async function BookSession(session: ISession): Promise<ISession> {
         throw new HTTP400Error("Student does not exist");
     }
 
+    // Add booking details to session
     let updateSessions;
     if (session.isCurrentBooking) {
         updateSessions = await addToCurrentBooking(session, bookingDetails);
     } else {
         updateSessions = await addToWaitingList(session, bookingDetails);
     }
+
+    await AddSessionForStudent(student._id, session._id);
 
     const additionalOptions = session.currentBooking.additionalOptions ||  [];
     // @ts-ignore
@@ -42,6 +45,7 @@ export async function BookSession(session: ISession): Promise<ISession> {
     return updateSessions;
 }
 
+// Adds booking to the currentBookingField for a session
 export async function addToCurrentBooking(session: ISession, bookingDetails: any): Promise<ISession> {
     return await Session.updateOne({_id: session._id}, { $set: 
         { currentBooking: bookingDetails }
@@ -54,6 +58,7 @@ export async function addToCurrentBooking(session: ISession, bookingDetails: any
     });  
 }
 
+// Pushes the booking into the waitingList
 export async function addToWaitingList(session: ISession, bookingDetails: any): Promise<ISession> {
     return await Session.updateOne({_id: session._id}, { $addToSet: 
         { waitingList: bookingDetails }
