@@ -1,4 +1,4 @@
-import Student, { IStudent} from './models/student.model';
+import Student, { IStudent, IStudentSessionIds} from './models/student.model';
 import { HTTP500Error } from '../../utils/httpErrors';
 
 export function getUserEmailById(
@@ -46,6 +46,19 @@ export async function AddSessionForStudent(_id: string, sessionId: string) {
         console.log('done ', res);
         return res;
     }); 
+}
+
+export async function GetSessionIdsForStudent(studentId: string) {
+    return await Student.findOne({ studentId }, (err, result: IStudentSessionIds) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting sessions for student');
+        }
+        //@ts-ignore
+        console.log('result is ', result.upcomingSessions.sessionIds);
+        //@ts-ignore
+        return result.upcomingSessions.sessionIds;
+    });
 }
 
 export default CreateStudent;
