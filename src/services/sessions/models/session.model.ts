@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document} from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 // Could probably be abstracted into a booking and used for workshop bookings as well
 export interface ISession extends Document {
@@ -8,24 +8,24 @@ export interface ISession extends Document {
     room: string;
     advisor: string;
     type: string;
-    currentBooking: SessionDetails;
-    waitingList: Array<SessionDetails>;
+    currentBooking: ISessionDetails;
+    waitingList: Array<ISessionDetails>;
     isCurrentBooking: boolean;
     // attendedNotAttended: string; (not sure what this is)
 }
 
-interface SessionDetails {
+interface ISessionDetails {
     studentId?: string;
     reason: string // Taken from 'this appointment is for'
     subjectName: string;
     assignmentType: string;
     isGroupAssignment: boolean;
-    needsHelpWithOptions: ICheckbox;
+    needsHelpWithOptions: IOption;
     additionalHelpDetails: string;
-    additionalOptions?: ICheckbox;
+    additionalOptions?: IOption;
 }
 
-export interface ICheckbox {
+export interface IOption {
     key: string;
 }
 

@@ -13,6 +13,13 @@ export interface IStudent extends Document {
     degree: string;
     status: string;
     education?: Array<Course>;
+    upcomingSessions: IStudentSessions;
+    previousSessions: IStudentSessions;
+}
+
+export interface IStudentSessions {
+    sessions: Array<string>;
+    workshopSessions: Array<string>;
 }
 
 export interface Course {
@@ -32,7 +39,9 @@ const StudentSchema: Schema = new Schema({
     gender: { type: String, required: true },
     degree: { type: String, required: true },
     status: { type: String, required: true },
-    education: { type: [Object], required: false },
+    education: { type: [Object], required: true },
+    upcomingSessions: { type: Object, required: true },
+    previousSessions: { type: Object, required: true }
 });
   
 export default mongoose.model<IStudent>('Student', StudentSchema);

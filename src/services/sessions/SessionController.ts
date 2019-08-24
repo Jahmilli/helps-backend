@@ -67,7 +67,7 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
 }
 
 
-export async function GetSessions(): Promise<Array<ISession>> {
+export async function GetAllSessions(): Promise<Array<ISession>> {
     return await Session.find({}, (err, session) => {
         if (err) {
             console.error(err);
