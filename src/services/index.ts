@@ -1,4 +1,5 @@
-import registrationRoutes from './registration/routes';
+import studentRoutes from './student/routes';
+import sessionRoutes from './sessions/routes';
 
-export default [...registrationRoutes];
+export default [...studentRoutes, ...sessionRoutes];
 
