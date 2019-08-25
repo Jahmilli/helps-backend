@@ -43,22 +43,8 @@ export async function AddSessionForStudent(_id: string, sessionId: string) {
             console.error('an error occurred when updating', err);
             throw new HTTP500Error('An error occurred when booking the session');
         }
-        console.log('done ', res);
         return res;
     }); 
-}
-
-export async function GetSessionIdsForStudent(studentId: string) {
-    return await Student.findOne({ studentId }, (err, result: IStudentSessionIds) => {
-        if (err) {
-            console.error(err);
-            throw new HTTP500Error('An error occurred when getting sessions for student');
-        }
-        //@ts-ignore
-        console.log('result is ', result.upcomingSessions.sessionIds);
-        //@ts-ignore
-        return result.upcomingSessions.sessionIds;
-    });
 }
 
 export default CreateStudent;

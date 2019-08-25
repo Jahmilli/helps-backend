@@ -19,7 +19,7 @@ export async function BookSession(session: ISession): Promise<ISession> {
     // Verify student exists and get their details
     const student = await GetStudentByStudentId(bookingDetails.studentId || '');
     if (!student) {
-        throw new HTTP400Error("Student does not exist");
+        throw new HTTP400Error('Student does not exist');
     }
 
     // Add booking details to session
@@ -74,6 +74,16 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
 
 export async function GetAllSessions(): Promise<Array<ISession>> {
     return await Session.find({}, (err, session) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting the sessions');
+        }
+        return session;
+    });
+}
+
+export async function GetSessionById(_id: string): Promise<ISession | null> {
+    return await Session.findOne({ _id }, (err, session) => {
         if (err) {
             console.error(err);
             throw new HTTP500Error('An error occurred when getting the sessions');
