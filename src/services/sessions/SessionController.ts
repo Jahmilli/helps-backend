@@ -32,12 +32,10 @@ export async function BookSession(session: ISession): Promise<ISession> {
 
     await AddSessionForStudent(student._id, session._id);
 
-    const additionalOptions = session.currentBooking.additionalOptions ||  [];
-    // @ts-ignore
+    const additionalOptions: any = session.currentBooking.additionalOptions ||  [];
     if (additionalOptions.emailAdmin) {
         // Need admin users in the database first
     }
-    // @ts-ignore
     if (additionalOptions.emailStudent) {
         sendEmailConfirmation(session, student);
     }
@@ -86,7 +84,7 @@ export async function GetSessionById(_id: string): Promise<ISession | null> {
     return await Session.findOne({ _id }, (err, session) => {
         if (err) {
             console.error(err);
-            throw new HTTP500Error('An error occurred when getting the sessions');
+            throw new HTTP500Error('An error occurred when getting the session');
         }
         return session;
     });
