@@ -33,15 +33,5 @@ export default [
         const result: Array<ISession> = await GetAllSessions();
         res.status(200).send(result);
       }
-    },
-    {
-      path: '/api/v1/session/student/:id',
-      method: 'get',
-      handler: async (req: Request, res: Response) => {
-        const studentId = req.params.id;
-        const result: Array<ISession> = await GetAllSessions();
-
-        res.status(200).send(result);
-      }
     }
 ];

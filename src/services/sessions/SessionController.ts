@@ -1,5 +1,5 @@
 import Session, { ISession } from './models/session.model';
-import { GetStudentByStudentId, AddSessionForStudent } from '../student/StudentController';
+import { GetStudent, AddSessionForStudent } from '../student/StudentController';
 import sendEmailConfirmation from './services.ts/email';
 import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
 
@@ -17,9 +17,9 @@ export async function BookSession(session: ISession): Promise<ISession> {
     const bookingDetails = session.isCurrentBooking ? session.currentBooking : session.waitingList[session.waitingList.length-1];
     
     // Verify student exists and get their details
-    const student = await GetStudentByStudentId(bookingDetails.studentId || '');
+    const student = await GetStudent({ studentId: bookingDetails.studentId } || { studentId: '' });
     if (!student) {
-        throw new HTTP400Error("Student does not exist");
+        throw new HTTP400Error('Student does not exist');
     }
 
     // Add booking details to session
@@ -32,12 +32,10 @@ export async function BookSession(session: ISession): Promise<ISession> {
 
     await AddSessionForStudent(student._id, session._id);
 
-    const additionalOptions = session.currentBooking.additionalOptions ||  [];
-    // @ts-ignore
+    const additionalOptions: any = session.currentBooking.additionalOptions ||  [];
     if (additionalOptions.emailAdmin) {
         // Need admin users in the database first
     }
-    // @ts-ignore
     if (additionalOptions.emailStudent) {
         sendEmailConfirmation(session, student);
     }
@@ -77,6 +75,16 @@ export async function GetAllSessions(): Promise<Array<ISession>> {
         if (err) {
             console.error(err);
             throw new HTTP500Error('An error occurred when getting the sessions');
+        }
+        return session;
+    });
+}
+
+export async function GetSessionById(_id: string): Promise<ISession | null> {
+    return await Session.findOne({ _id }, (err, session) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting the session');
         }
         return session;
     });
