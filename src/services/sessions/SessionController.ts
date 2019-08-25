@@ -1,5 +1,5 @@
 import Session, { ISession } from './models/session.model';
-import { GetStudentByStudentId, AddSessionForStudent } from '../student/StudentController';
+import { GetStudent, AddSessionForStudent } from '../student/StudentController';
 import sendEmailConfirmation from './services.ts/email';
 import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
 
@@ -17,7 +17,7 @@ export async function BookSession(session: ISession): Promise<ISession> {
     const bookingDetails = session.isCurrentBooking ? session.currentBooking : session.waitingList[session.waitingList.length-1];
     
     // Verify student exists and get their details
-    const student = await GetStudentByStudentId(bookingDetails.studentId || '');
+    const student = await GetStudent({ studentId: bookingDetails.studentId } || { studentId: '' });
     if (!student) {
         throw new HTTP400Error('Student does not exist');
     }

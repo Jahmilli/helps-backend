@@ -13,6 +13,10 @@
 4. To validate the application is running, from the browser, navigate to: 'http://localhost:3001/api/v1/test' and expect to see 'Hello world'.
 
 
+#### Using email
+Current email is setup using nodemailer with a temporary gmail account. These details are saved in a .env file (see .env_template for what fields are needed in this .env file). To get credentials,
+please ask someone in the group. __NOTE:__ Make sure these credentials are not saved in any other file and accidentally committed.
+
 If you have any issues, please ask someone in the group :)
 This application was setup using:
 - [production ready nodejs](https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407)

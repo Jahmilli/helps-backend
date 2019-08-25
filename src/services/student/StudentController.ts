@@ -1,12 +1,5 @@
-import Student, { IStudent, IStudentSessionIds} from './models/student.model';
+import Student, { IStudent } from './models/student.model';
 import { HTTP500Error } from '../../utils/httpErrors';
-
-export function getUserEmailById(
-    user: IStudent,
-    users: IStudent[]
-  ): IStudent['email'] {
-    return users.filter((item: IStudent) => item._id === user._id)[0].email;
-}
 
 async function CreateStudent(student: IStudent): Promise<IStudent> {
     return await Student.create(student)
@@ -21,14 +14,14 @@ async function CreateStudent(student: IStudent): Promise<IStudent> {
 }
 
 // Returns a student object based on the studentId
-export async function GetStudentByStudentId(studentId: string): Promise<IStudent | null> {
-    return await Student.findOne({ studentId }, function (err, student) {
+export async function GetStudent(queryParam: any): Promise<IStudent | null> {
+    return await Student.findOne(queryParam, function (err, student) {
         if (err) {
-            console.error(`An error occurred when searching for ${studentId}`);
+            console.error('An error occurred when searching for a student');
             throw new HTTP500Error('An error occurred when searching for the student');
         }
         if (!student) {
-            console.log(`No student was found with the id ${studentId}`);
+            console.log('No student was found with the query param', queryParam);
             return;
         }
         return student;
