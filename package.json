@@ -44,6 +44,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.17",
     "jest": "^24.8.0",
+    "mongo-seeding": "^3.3.0",
     "ts-jest": "^24.0.2"
   },
   "jest": {
