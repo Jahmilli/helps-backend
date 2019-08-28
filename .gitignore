@@ -12,3 +12,6 @@
 
 # Mongo
 data/
+
+# Yarn
+yarn-error.log

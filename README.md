@@ -26,6 +26,7 @@ From the command line, run:
     - Connection string: 'mongodb://mongodb:27017/mytestdatabase'
 4. Click 'Add connection'
 You should now be able to click 'Connect' and see 'mytestdatabase' appear on the left panel. Here you will be able to view the collections and view documents saved in Mongo.
+Once you have verified the database is displaying, you can then seed the database (prefill with random values) if you would like to view random session etc in the database. To do so, run `yarn seed` from the command line and expect it to output 'Done' after a few seconds.
 
 #### Additional Information:
 To stop the database running, use 'ctrl c' to exit, then run `docker-compose stop` to stop the containers running.
