@@ -28,8 +28,8 @@ server.listen(PORT, () =>
 );
 
 // Mlabs Link
-// const db = 'mongodb://admin:password1@ds341837.mlab.com:41837/mytestdatabase';
+const db = 'mongodb://admin:password1@ds341837.mlab.com:41837/mytestdatabase';
 
 // Local Link
-const db = 'mongodb://localhost/mytestdatabase';
+// const db = 'mongodb://localhost/mytestdatabase';
 connect({ db });
