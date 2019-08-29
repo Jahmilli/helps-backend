@@ -15,6 +15,14 @@
 3. Run: `yarn run start` (Expect the application to startup)
 4. To validate the application is running, from the browser, navigate to: 'http://localhost:3001/api/v1/test' and expect to see 'Hello world'.
 
+### Running the application with PM2
+PM2 can be used to run the application in a cluster which will also be able to handle failures and exceptions thrown by the application. __Note:__ This should be used for the presentation so we don't have to restart the server every time an error occurs.
+
+1. To run the application with pm2, run: `yarn startPm2` (Will do a tsc and start up pm2 using the config from 'pm2.yml')
+2. To view the cluster you can run: `yarn pm2 list`
+3. To view application logs run: `yarn pm2 logs`
+4. To stop the cluster, you can run `yarn stopPm2`
+
 
 ### Running Mongo with Docker
 Once you have Docker installed and running, open up your terminal and navigate to the root of this application.
