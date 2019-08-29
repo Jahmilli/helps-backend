@@ -8,7 +8,8 @@
     "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
     "seed": "node seed",
     "start": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "startPm2": "npx pm2 start pm2.yaml",
+    "startPm2": "tsc && npx pm2 start pm2.yml",
+    "stopPm2": "pm2 stop pm2.yml",
     "test": "jest --coverage --verbose"
   },
   "repository": {

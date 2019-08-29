@@ -4,7 +4,7 @@ import CreateStudent, { GetStudent } from './StudentController';
 import { IStudent } from './models/student.model'
 import { checkStudentRegisterParams } from '../../middleware/check';
 import { GetSessionById } from '../sessions/SessionController';
-import { HTTP400Error } from '../../utils/httpErrors';
+import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
 
 export default [
     {
@@ -23,6 +23,13 @@ export default [
         method: 'get',
         handler: async (req: Request, res: Response) => {
             res.send('This is a test message from node!');
+        }
+    },
+    {
+        path: '/api/v1/die',
+        method: 'get',
+        handler: async (req: Request, res: Response) => {
+            throw new HTTP500Error("Kill the server!");
         }
     },
     {
