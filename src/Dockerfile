@@ -1,3 +1,4 @@
+# TODO: FIGURE OUT HOW THIS WORKS WITH TYPESCRIPT
 # pull a node image from docker hub
 FROM node:10 
 
@@ -13,7 +14,7 @@ RUN yarn install
 # copy everything to container /app
 COPY . . 
 
-# expose port 3000 to mount it to another port in local machine 
+# expose port 3001 to mount it to another port in local machine 
 EXPOSE 3001
 
 # start server inside container
