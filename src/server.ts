@@ -27,5 +27,9 @@ server.listen(PORT, () =>
   console.log(`Server is running http://localhost:${PORT}...`)
 );
 
+// Mlabs Link
 const db = 'mongodb://admin:password1@ds341837.mlab.com:41837/mytestdatabase';
+
+// Local Link
+// const db = 'mongodb://localhost/mytestdatabase';
 connect({ db });

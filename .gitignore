@@ -9,3 +9,9 @@
 
 # misc
 .DS_Store
+
+# Mongo
+data/
+
+# Yarn
+yarn-error.log

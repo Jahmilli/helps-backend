@@ -6,8 +6,10 @@
   "scripts": {
     "tsc": "tsc",
     "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
+    "seed": "node seed",
     "start": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "startPm2": "npx pm2 start pm2.yaml",
+    "startPm2": "tsc && npx pm2 start pm2.yml",
+    "stopPm2": "pm2 stop pm2.yml",
     "test": "jest --coverage --verbose"
   },
   "repository": {
@@ -43,7 +45,9 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",
+    "faker": "^4.1.0",
     "jest": "^24.8.0",
+    "mongo-seeding": "^3.3.0",
     "ts-jest": "^24.0.2"
   },
   "jest": {
