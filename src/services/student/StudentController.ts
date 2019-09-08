@@ -13,6 +13,20 @@ async function CreateStudent(student: IStudent): Promise<IStudent> {
     });
 }
 
+export async function UpdateStudentDetails(student: IStudent): Promise<IStudent | null> {
+    return await Student.findOneAndUpdate({_id: student._id}, student, {upsert:true}, (err, result) => {
+        if (err) {
+            console.error('An error occurred when updating the student');
+            throw new HTTP500Error('An error occurred when updating the student');
+        }
+        if (!result) {
+            console.log('No student was found with the id: ' + student._id);
+            return;
+        }
+        return result
+    });
+}
+
 // Returns a student object based on the studentId
 export async function GetStudent(queryParam: any): Promise<IStudent | null> {
     return await Student.findOne(queryParam, function (err, student) {

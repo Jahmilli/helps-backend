@@ -12,6 +12,8 @@ export interface IStudent extends Document {
     gender: string;
     degree: string;
     status: string;
+    language: string;
+    countryOfOrigin: string;
     education?: Array<Course>;
     upcomingSessions: IStudentSessionIds;
     previousSessions: IStudentSessionIds;
@@ -39,6 +41,8 @@ const StudentSchema: Schema = new Schema({
     gender: { type: String, required: true },
     degree: { type: String, required: true },
     status: { type: String, required: true },
+    language: { type: String, required: true },
+    countryOfOrigin: { type: String, required: true },
     education: { type: [Object], required: true },
     upcomingSessions: { type: Object, required: true },
     previousSessions: { type: Object, required: true }

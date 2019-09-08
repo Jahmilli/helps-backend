@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import CreateStudent, { GetStudent } from './StudentController';
+import CreateStudent, { GetStudent, UpdateStudentDetails } from './StudentController';
 import { IStudent } from './models/student.model'
 import { checkStudentRegisterParams } from '../../middleware/check';
 import { GetSessionById } from '../sessions/SessionController';
@@ -14,6 +14,17 @@ export default [
             checkStudentRegisterParams,
             async (req: Request, res: Response) => {
                 const result = await CreateStudent(req.body);
+                res.status(200).send(result);
+            }
+        ]
+    },
+    {
+        path: '/api/v1/student/update',
+        method: 'post',
+        handler: [
+            checkStudentRegisterParams,
+            async (req: Request, res: Response) => {
+                const result = await UpdateStudentDetails(req.body);
                 res.status(200).send(result);
             }
         ]
