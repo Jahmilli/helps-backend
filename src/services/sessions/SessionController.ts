@@ -69,6 +69,15 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
     }); 
 }
 
+export async function GetAllWaitingList(): Promise<Array<ISession>> {
+    return await Session.find({}, (err, waitingList) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting the sessions');
+        }
+        return waitingList;
+    });
+}
 
 export async function GetAllSessions(): Promise<Array<ISession>> {
     return await Session.find({}, (err, session) => {
