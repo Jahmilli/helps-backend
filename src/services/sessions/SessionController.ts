@@ -69,6 +69,34 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
     }); 
 }
 
+// Basically same as getAllSessions but returns student details as well
+export async function GetAllSessionsForReports(): Promise<Array<any>> {
+    let sessions = await Session.find({}, (err, session) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting the sessions');
+        }
+        return session;
+    });
+    // console.log('sessions are ', sessions);
+    let results = sessions.map(async (session: any) => {
+        let result = session;
+        // console.log('session is ', session);
+        if (session.currentBooking) {
+            const { studentId } = session.currentBooking;
+            if (studentId) {
+                const studentDetails = await GetStudent({ studentId });
+                if (studentDetails) {
+                  // Add in student details here
+                }
+            }
+        }
+        return result;
+    });
+    const finalResults = await Promise.all(results);
+    // console.log('results are ', finalResults);
+    return finalResults;
+}
 
 export async function GetAllSessions(): Promise<Array<ISession>> {
     return await Session.find({}, (err, session) => {
