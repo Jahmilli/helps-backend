@@ -104,8 +104,7 @@ export async function GetAllSessionsForReports(): Promise<Array<any>> {
         }
         return session;
     });
-    const finalResults = await Promise.all(results);
-    return finalResults;
+    return await Promise.all(results);
 }
 
 export async function GetAllSessions(): Promise<Array<ISession>> {
