@@ -69,6 +69,8 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
     }); 
 }
 
+// This is pretty bad to do but because this code will likely never be looked at again, 
+// we're just gonna do a a huge ass query that returns all sessions and student data for that booking. (I know, this is really not good....)
 // Basically same as getAllSessions but returns student details as well
 export async function GetAllSessionsForReports(): Promise<Array<any>> {
     let sessions = await Session.find({}, (err, session) => {
@@ -77,24 +79,35 @@ export async function GetAllSessionsForReports(): Promise<Array<any>> {
             throw new HTTP500Error('An error occurred when getting the sessions');
         }
         return session;
-    });
-    // console.log('sessions are ', sessions);
+    })
+    .lean(); // This alters the returning result from a Mongoose 'Query' into a plain Javascript Object
+
+    // Iterate over sessions and do a lookup to get student data which is needed
     let results = sessions.map(async (session: any) => {
-        let result = session;
-        // console.log('session is ', session);
+        let result = {
+            ...session
+        }
         if (session.currentBooking) {
             const { studentId } = session.currentBooking;
             if (studentId) {
-                const studentDetails = await GetStudent({ studentId });
+                let studentDetails = await GetStudent({ studentId });
                 if (studentDetails) {
+                    const { fullName, preferredName, faculty, degree, status } = studentDetails;
                   // Add in student details here
+                  result.currentBooking = {
+                      ...result.currentBooking,
+                      fullName,
+                      preferredName,
+                      faculty,
+                      degree,
+                      status
+                  }
                 }
             }
         }
         return result;
     });
     const finalResults = await Promise.all(results);
-    // console.log('results are ', finalResults);
     return finalResults;
 }
 
