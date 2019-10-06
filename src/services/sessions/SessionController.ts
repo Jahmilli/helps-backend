@@ -69,6 +69,43 @@ export async function addToWaitingList(session: ISession, bookingDetails: any): 
     }); 
 }
 
+// This is pretty bad to do but because this code will likely never be looked at again, 
+// we're just gonna do a a huge ass query that returns all sessions and student data for that booking. (I know, this is really not good....)
+// Basically same as getAllSessions but returns student details as well
+export async function GetAllSessionsForReports(): Promise<Array<any>> {
+    let sessions = await Session.find({}, (err, session) => {
+        if (err) {
+            console.error(err);
+            throw new HTTP500Error('An error occurred when getting the sessions');
+        }
+        return session;
+    })
+    .lean(); // This alters the returning result from a Mongoose 'Query' into a plain Javascript Object
+
+    // Iterate over sessions and if they have a "current booking", do a lookup to add the student details for that booking
+    let results = sessions.map(async (session: any) => {
+        if (session.currentBooking) {
+            const { studentId } = session.currentBooking;
+            if (studentId) {
+                let studentDetails = await GetStudent({ studentId });
+                if (studentDetails) {
+                    const { fullName, preferredName, faculty, degree, status } = studentDetails;
+                  // Add in student details here
+                  session.currentBooking = {
+                      ...session.currentBooking,
+                      fullName,
+                      preferredName,
+                      faculty,
+                      degree,
+                      status
+                  }
+                }
+            }
+        }
+        return session;
+    });
+    return await Promise.all(results);
+}
 
 export async function GetAllSessions(): Promise<Array<ISession>> {
     return await Session.find({}, (err, session) => {

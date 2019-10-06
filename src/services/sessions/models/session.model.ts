@@ -16,6 +16,10 @@ export interface ISession extends Document {
 
 interface ISessionDetails {
     studentId?: string;
+    preferredName?: string;
+    faculty?: string;
+    status?: string;
+    degree?: string;
     reason: string // Taken from 'this appointment is for'
     subjectName: string;
     assignmentType: string;

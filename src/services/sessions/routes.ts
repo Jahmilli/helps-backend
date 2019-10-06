@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { BookSession, CreateSessions, GetAllSessions } from './SessionController';
+import { BookSession, CreateSessions, GetAllSessions, GetAllSessionsForReports } from './SessionController';
 import { ISession } from './models/session.model'
 import { checkSessionParams } from '../../middleware/check';
 
@@ -25,6 +25,14 @@ export default [
           res.status(200).send(result);
         }
       ]
+    },
+    {
+      path: '/api/v1/session/reports',
+      method: 'get',
+      handler: async (req: Request, res: Response) => {
+        const result: Array<ISession> = await GetAllSessionsForReports();
+        res.status(200).send(result);
+      }
     },
     {
       path: '/api/v1/session',
