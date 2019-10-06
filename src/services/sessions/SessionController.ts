@@ -82,11 +82,8 @@ export async function GetAllSessionsForReports(): Promise<Array<any>> {
     })
     .lean(); // This alters the returning result from a Mongoose 'Query' into a plain Javascript Object
 
-    // Iterate over sessions and do a lookup to get student data which is needed
+    // Iterate over sessions and if they have a "current booking", do a lookup to add the student details for that booking
     let results = sessions.map(async (session: any) => {
-        let result = {
-            ...session
-        }
         if (session.currentBooking) {
             const { studentId } = session.currentBooking;
             if (studentId) {
@@ -94,8 +91,8 @@ export async function GetAllSessionsForReports(): Promise<Array<any>> {
                 if (studentDetails) {
                     const { fullName, preferredName, faculty, degree, status } = studentDetails;
                   // Add in student details here
-                  result.currentBooking = {
-                      ...result.currentBooking,
+                  session.currentBooking = {
+                      ...session.currentBooking,
                       fullName,
                       preferredName,
                       faculty,
@@ -105,7 +102,7 @@ export async function GetAllSessionsForReports(): Promise<Array<any>> {
                 }
             }
         }
-        return result;
+        return session;
     });
     const finalResults = await Promise.all(results);
     return finalResults;
