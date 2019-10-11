@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { HTTP400Error } from '../utils/httpErrors';
 import { ISession } from '../services/sessions/models/session.model';
+import { IWorkshop } from '../services/workshops/models/workshop.model';
 
 export const checkStudentRegisterParams = (
     req: Request,
@@ -29,4 +30,16 @@ export const checkSessionParams = (
         } 
     });
     next(); 
+}
+
+export const checkWorkshopParams = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    if (!req.body.no || !req.body.skillSet || !req.body.shortTitle || !req.body.status) {
+        throw new HTTP400Error('Missing Parameters');
+    } else {
+        next(); 
+    }
 }
