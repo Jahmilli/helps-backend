@@ -1,6 +1,5 @@
 import Workshop, { IWorkshop, IWorkshopSession } from './models/workshop.model';
-import { HTTP400Error, HTTP500Error } from '../../utils/httpErrors';
-import workshops from './routes/workshops';
+import { HTTP500Error } from '../../utils/httpErrors';
 
 export async function GetAllSessions(workshopId: string): Promise<IWorkshop | null> {
     return await Workshop.findOne({ _id: workshopId }, (err, workshop) => {
@@ -8,7 +7,7 @@ export async function GetAllSessions(workshopId: string): Promise<IWorkshop | nu
             console.error(err);
             throw new HTTP500Error('An error occurred when getting the workshops');
         }
-        return workshop.singleSessions;
+        return workshop;
     });
 }
 
