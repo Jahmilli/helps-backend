@@ -10,8 +10,11 @@ export default [
         method: 'get',
         handler: async (req: Request, res: Response) => {
             const workshopId = req.params.workshopId;
-            const result: IWorkshop = await GetAllSessions(workshopId);
-            res.status(200).send(result.singleSessions);
+            const result: IWorkshop | null = await GetAllSessions(workshopId);
+            if(result !== null) {
+                res.status(200).send(result.singleSessions);
+            }
+            res.status(500).send("Null sessions");
         }
     },
     {
