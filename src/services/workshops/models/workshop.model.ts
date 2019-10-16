@@ -56,8 +56,8 @@ export interface IWorkshopSession {
 
 interface IWorkshopSessionDetails {
     studentId: { type: String, required: false },
-    dateBooked?: string;
-    attended?: boolean;
+    dateBooked: { type: String, required: false };
+    attended: { type: String, required: false };
 }
 
 export default mongoose.model<IWorkshop>('Workshop', WorkshopSchema);
