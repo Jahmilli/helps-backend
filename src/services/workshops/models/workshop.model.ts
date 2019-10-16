@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 const WorkshopDetailsSchema: Schema = new Schema({
     studentId: { type: String, required: false },
     dateBooked: { type: String, required: false },
-    attended: { type: Boolean, required: false }
+    attended: { type: String, required: false }
 });
 
 const WorkshopSessionSchema: Schema = new Schema({
@@ -48,16 +48,16 @@ export interface IWorkshopSession {
     room: string;
     maxStudents: string;
     cutoff: string;
-    waitingList: Array<String>
+    waitingList: Array<string>
     confirmedList: Array<IWorkshopSessionDetails>;
     targetGroup: string;
     sessionCoverage: string;
 }
 
 interface IWorkshopSessionDetails {
-    studentId: { type: String, required: false },
-    dateBooked: { type: String, required: false };
-    attended: { type: String, required: false };
+    studentId: string,
+    dateBooked: string;
+    attended: string;
 }
 
 export default mongoose.model<IWorkshop>('Workshop', WorkshopSchema);
