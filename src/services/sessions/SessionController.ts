@@ -13,7 +13,6 @@ export async function CreateSessions(sessions: Array<ISession>): Promise<Array<I
 }
 
 export async function BookSession(session: ISession): Promise<ISession> {
-    console.log(session);
     const bookingDetails = session.isCurrentBooking ? session.currentBooking : session.waitingList[session.waitingList.length-1];
     
     // Verify student exists and get their details
