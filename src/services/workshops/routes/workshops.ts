@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateWorkshops, GetAllWorkshops, ReplaceWorkshopById } from '../WorkshopController';
+import { CreateWorkshops, GetAllWorkshops, GetAllWorkshopsForReports, ReplaceWorkshopById } from '../WorkshopController';
 import { IWorkshop } from '../models/workshop.model'
 import { checkWorkshopParams } from '../../../middleware/check';
 
@@ -14,6 +14,14 @@ export default [
         res.status(200).send(result);
       }
     ]
+  },
+  {
+    path: '/api/v1/workshop/reports',
+    method: 'get',
+    handler: async (req: Request, res: Response) => {
+      const result: Array<IWorkshop> = await GetAllWorkshopsForReports();
+      res.status(200).send(result);
+    }
   },
   {
     path: '/api/v1/workshop/current',

@@ -31,8 +31,8 @@ const WorkshopSchema: Schema = new Schema({
 
 
 export interface IWorkshop extends Document {
-    no: string;
-    skillSet: string;
+    no: string; // Should be a date object
+    skillSet: string; // Should be a date object
     shortTitle: string;
     status: string;
     singleSessions: Array<IWorkshopSession>

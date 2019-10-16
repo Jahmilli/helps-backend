@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { GetAllSessions, CreateSession, ReplaceSessionById } from '../WorkshopSessionController';
-import { IWorkshop } from '../models/workshop.model'
+import { GetWorkshopById } from '../WorkshopController';
+import { IWorkshop, IWorkshopSession } from '../models/workshop.model'
 import { checkWorkshopSessionParams } from '../../../middleware/check';
 
 export default [
@@ -9,7 +10,7 @@ export default [
         method: 'get',
         handler: async (req: Request, res: Response) => {
             const workshopId = req.params.workshopId;
-            const result: IWorkshop | null = await GetAllSessions(workshopId);
+            const result: IWorkshop = await GetAllSessions(workshopId);
             res.status(200).send(result.singleSessions);
         }
     },
